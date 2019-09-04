@@ -1,0 +1,302 @@
+.app.authed
+  .authentication
+    opacity 0
+    pointer-events none
+
+.authentication
+  width 100%
+  height calc(100% - 25px)
+  z-index 3
+  position absolute
+  transition .4s ease-in-out
+
+
+// NEW SIGNIN
+
+.signin
+  width calc(260px + 64px + 40px)
+  height calc(70px + 70px + 30px)
+  // height calc(70px + 70px + 170px)
+  centered()
+
+  .form
+    position absolute
+    top 0
+    left 0
+
+    .text-input
+      margin-bottom 30px
+
+    .google-sign-in-btn
+      width 250px
+      height 40px
+      line-height @height
+      box-sizing border-box
+      border 2px solid rgba(255, 255, 255, .2)
+      background none
+
+      &:hover
+        border-color rgba(255, 255, 255, .45)
+
+      .icon, .label
+        color rgba(255, 255, 255, .8)
+
+      .icon
+        margin-right 15px
+
+      .label
+        vertical-align middle
+
+  .signin-btn
+    position absolute
+    top 20px
+    right 0
+    border-radius 50%
+    width 60px
+    height 60px
+    border-width 3px
+    border-color rgba(255, 255, 255, .25)
+    background none
+
+    &:hover
+      border-color rgba(255, 255, 255, .4)
+      background none
+
+      .icon
+        color rgba(255, 255, 255, .4)
+
+    &.disabled
+      .icon-lock
+        opacity 1
+        z-index 5
+
+      .icon-navigate_next
+        opacity 0
+        z-index -99
+
+    &.submitting
+      .loader
+        opacity 1
+        z-index 5
+
+      .icon-navigate_next, .icon-lock
+        opacity 0
+        z-index -99
+
+    .icon
+      position absolute
+      top 50%
+      left 50%
+      transform translate(-50%, -50%)
+      font-size 25px
+      color rgba(255, 255, 255, .3)
+      transition all .2s
+
+    .icon-lock
+      opacity 0
+      z-index -99
+
+    .icon-navigate_next
+      opacity 1
+      z-index 5
+      font-size 30px
+
+    .loader
+      opacity 0
+      z-index -99
+      transition all .2s
+
+  .links
+    position absolute
+    bottom 0
+    left 0
+
+    & > *
+      display block
+      margin-bottom 10px
+      color rgba(255, 255, 255, .5)
+      cursor pointer
+
+      &:hover
+        color rgba(255, 255, 255, .8)
+
+    .stay-signedin-switch, .anonymous-signin-btn
+      margin-bottom 20px
+
+.signup
+  width calc(260px + 64px + 40px)
+  height calc(70px + 70px + 70px + 60px)
+  centered()
+
+  .form
+    position absolute
+    top 0
+    left 0
+
+    .text-input
+      margin-bottom 30px
+
+  .signup-btn
+    position absolute
+    top 60px
+    right 0
+    border-radius 50%
+    width 60px
+    height 60px
+    border-width 3px
+    border-color rgba(255, 255, 255, .25)
+    background none
+
+    &:hover
+      border-color rgba(255, 255, 255, .4)
+      background none
+
+      .icon
+        color rgba(255, 255, 255, .4)
+
+    &.disabled
+      .icon-lock
+        opacity 1
+        z-index 5
+
+      .icon-navigate_next
+        opacity 0
+        z-index -99
+
+    &.submitting
+      .loader
+        opacity 1
+        z-index 5
+
+      .icon-navigate_next, .icon-lock
+        opacity 0
+        z-index -99
+
+    .icon
+      position absolute
+      top 50%
+      left 50%
+      transform translate(-50%, -50%)
+      font-size 25px
+      color rgba(255, 255, 255, .3)
+      transition all .2s
+
+    .icon-lock
+      opacity 0
+      z-index -99
+
+    .icon-navigate_next
+      opacity 1
+      z-index 5
+      font-size 30px
+
+    .loader
+      opacity 0
+      z-index -99
+      transition all .2s
+
+  .links
+    position absolute
+    bottom 0
+    left 0
+
+    & > *
+      display block
+      margin-bottom 10px
+      color rgba(255, 255, 255, .5)
+      cursor pointer
+
+      &:hover
+        color rgba(255, 255, 255, .8)
+
+    .toggle-password-btn
+      margin-bottom 20px
+
+
+// END NEW SIGN IN
+
+
+
+/* .login, .signup
+  display block
+  width max-content
+  height max-content
+  position absolute
+  top 50%
+  left 50%
+  transform translate(-50%, -50%)
+
+  &.error
+    .error-message
+      color red
+      // margin-bottom 40px
+      position absolute
+      top -60px
+      left 50%
+      transform translateX(-50%)
+
+    .text-input
+      .input
+        border-color red
+
+        &:focus
+          border-color red
+
+          + .placeholder
+            color red
+
+      .placeholder
+        color red
+
+  & > *
+    display block
+    width max-content
+    margin auto
+
+  .title
+    font-size 20px
+    margin-bottom 50px
+    color $text-highlight-dark-color
+    cursor default !important
+
+    &:hover
+      color $text-highlight-dark-color
+
+  .forgotten-password
+    margin-bottom 30px
+
+  .text-input
+    margin-bottom 30px
+
+    &.password
+      margin-bottom 15px
+
+  .switch
+    display block
+    margin-bottom 25px
+
+  .btn
+    width 200px
+    background transparent
+    margin-bottom 30px
+    line-height 40px
+    height 40px
+
+  .signin-btn
+    border-radius 50%
+    width 60px
+    height 60px
+    border-width 2px
+
+    .icon
+      position absolute
+      top 50%
+      left 50%
+      transform translate(-50%, -50%)
+      font-size 25px
+
+  .text
+    cursor pointer
+
+    &:hover
+      color $text-highlight-dark-color */

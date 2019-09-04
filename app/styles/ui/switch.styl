@@ -1,0 +1,41 @@
+.switch
+  display inline-block
+
+  &:hover
+    .label
+      color rgba(255, 255, 255, .7) !important
+      
+  &.active 
+    .container
+      background-color $active-color
+
+      .inner-circle
+        margin-left 15px
+
+  &.disabled
+    // disabled
+
+  .label
+    cursor pointer
+    font-size 15px
+    color rgba(255, 255, 255, .5) !important
+
+  .container
+    display inline-block
+    width 25px
+    height 10px
+    background rgba(255, 255, 255, .2) // gray
+    border-radius 30px
+    padding 5px
+    transition all .2s ease-in-out
+    cursor pointer
+    margin-left 10px
+    vertical-align middle
+
+    .inner-circle
+      display block
+      width 10px
+      height 10px
+      background #fff
+      border-radius 50%
+      transition all .2s ease-in-out

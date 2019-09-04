@@ -1,0 +1,122 @@
+.dialog
+  width 100vw
+  height calc(100vh - 25px)
+  position fixed
+  top 25px
+  left 0
+  background rgba(0,0,0,0.7)
+  z-index -5
+  opacity 0
+  transition all .3s
+
+  &.opened 
+    opacity 1
+    z-index 99999
+
+    .content
+      transform scale(1) translate(-50%, -50%)
+
+  .content
+    transition all .2s
+    width 500px
+    height 300px
+    position absolute
+    // Center completely the modal.
+    top calc(50% - 25px)
+    left 50%
+    transform scale(0) translate(-50%, -50%)
+    transform-origin top left
+    border-radius 5px
+    box-sizing border-box
+    padding 25px
+    // Experimental.
+    background #333538d9
+    border 1px solid rgba(255, 255, 255, .3)
+
+    .header
+      width 100%
+      height 65px
+      // background #3a3c40
+      position absolute
+      top 0
+      left 0
+      border-radius 5px 5px 0 0
+      box-sizing border-box
+      padding 25px 25px 0 25px
+
+      .title
+        font-size 16px
+        color $text-dark-color
+        float left
+
+      .close-btn
+        float right
+        border none
+        background none
+        width 20px
+        height 20px
+
+        &:hover
+          color red
+
+        .icon
+          position absolute
+          top 0
+          left 0
+          font-size 20px
+
+    .body
+      width 100%
+      height calc(300px - 65px - 70px)
+      position absolute
+      top 65px
+      left 0
+      // background #3a3c40
+      box-sizing border-box
+      padding 0 25px 25px 25px
+
+      .btn
+        background none
+        border none
+        text-transform uppercase
+        font-weight bold
+        width max-content
+        height max-content
+        line-height inherit
+        // margin-left 40px
+
+        .icon
+          margin-right 15px
+
+    .footer
+      width 100%
+      height 70px
+      // background #333538
+      position absolute
+      bottom 0
+      left 0
+      border-radius 0 0 5px 5px
+      box-sizing border-box
+      padding 25px
+
+      .btn
+        float right
+        background none
+        border none
+        text-transform uppercase
+        font-weight bold
+        width max-content
+        height max-content
+        line-height inherit
+        margin-left 40px
+
+        &:first-child
+          .label
+            color #49FF5F
+
+          &:hover
+            .label
+              color #00FF5F
+
+        
+

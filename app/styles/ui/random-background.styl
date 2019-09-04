@@ -1,0 +1,26 @@
+.random-background
+  width 100%
+  height 100%
+  position absolute
+  top 25px
+
+  .bg-overlay
+    width 100%
+    height 100%
+    opacity .85 // .85
+    position absolute
+    z-index 1
+    top 0
+    left 0
+
+  .background
+    width 100% //inherit
+    height auto // inherit
+    position absolute
+    top 0 // 50%
+    left 0 // 50%
+    // transform translate(-50%, -50%)
+    z-index 0
+
+.app[theme='dark'] .random-background .bg-overlay
+  background-color $random-bg-overlay-dark-color

@@ -1,0 +1,62 @@
+.app.authed
+  .slideshow
+    opacity 1
+    pointer-events auto
+
+.slideshow
+  width 100%
+  height 775px
+  overflow hidden
+  position absolute
+  top 25px
+  z-index 2
+  transition ease-in-out 1s
+  opacity 0
+  pointer-events none
+  
+  .navigation
+    width max-content
+    height auto
+    margin auto
+    margin-top 30px
+    margin-bottom 30px
+    transition ease-in-out .2s
+
+    &.hidden
+      opacity 0
+      pointer-events none
+
+    .nav-link
+      display inline-block
+      margin 10px 30px
+      font-family 'Roboto'
+      cursor pointer
+      transition .2s ease-in-out
+
+  .slide
+    width 100%
+    height 735px
+    position absolute
+    top 100px
+    // background #ccc
+    transition .2s all
+
+    & > *
+      width 100%
+      height 100%
+
+    &.hidden-left
+      left -100%
+
+    &.hidden-right
+      left 100%
+
+    &.active
+      left 0
+      
+.app[theme='dark'] .nav-link
+  color $text-dark-color
+
+  &.active, &:hover
+    color $text-highlight-dark-color
+    text-shadow 0 0 20px $text-highlight-dark-color

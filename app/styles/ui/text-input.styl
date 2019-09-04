@@ -1,0 +1,98 @@
+.text-input
+  display block
+  width 250px
+  height 40px
+  margin auto
+  border-radius 5px
+  background-color rgba(255, 255, 255, .15)
+  transition all .2s
+  cursor pointer
+  position relative
+
+  &:hover
+    background-color rgba(255, 255, 255, .3)
+
+  &.active
+    background-color rgba(255, 255, 255, .3)
+
+    .placeholder
+      opacity 0
+      z-index -2
+
+  &.notEmpty
+    .input
+      outline none
+
+    .placeholder
+      opacity 0
+      z-index -2
+
+  &.error
+    .input
+      // border-color $error-color
+      color $error-color
+
+    .placeholder
+      color $error-color
+
+  &.align-left
+    margin 0
+
+    .input
+      // margin 0
+      text-align left
+
+    .placeholder
+      margin 0
+      left 15px
+      transform translateY(-50%)
+
+  .input
+    display block
+    width 220px
+    height inherit
+    line-height @height
+    border none
+    // border-bottom 1px solid $text-dark-color
+    background none
+    cursor pointer
+    // margin auto
+    text-align center
+    // transition .2s ease-in-out
+    color $text-dark-color
+    font-size 15px
+    font-family 'Roboto'
+    padding 0 15px
+
+    &[type='password']
+      font-size 22px
+
+    &:focus
+      // width 300px
+      // border-color $active-color
+      outline none
+
+      // + .placeholder
+        // color $active-color
+        // top -55px
+
+    // &:hover
+      // border-color #05c8e6
+
+    &::selection
+      background $text-dark-color
+
+  .placeholder
+    font-family 'Roboto'
+    font-size 15px
+    color $text-dark-color
+    cursor pointer
+    // text-transform uppercase
+    transition .2s ease-in-out
+    display block
+    width max-content
+    // margin auto
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
