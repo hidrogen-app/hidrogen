@@ -9,18 +9,18 @@ const os = require('os').platform()
 const { getLaunchArguments } = require('./cli')
 const AutoUpdater = require('./auto-updater')
 const NativeWindow = require('./native-window')
-const { log } = require('./log')
+// const { log } = require('./log')
 
 require('dotenv/config')
 
 const args = getLaunchArguments(process.argv)
 const startTime = Date.now()
 
-log('info', '[main] App is starting...')
+// log('info', '[main] App is starting...')
 
 const autoUpdater = new AutoUpdater(app.getVersion(), process.env.UPDATE_FEED_URL)
 autoUpdater.initialize()
-log('info', '[main] Initializing autoUpdater...')
+// log('info', '[main] Initializing autoUpdater...')
 
 if (process.env.DISABLE_HARDWARE_ACCELERATION || args.disableHardwareAcceleration) {
   app.disableHardwareAcceleration()
@@ -29,7 +29,7 @@ if (process.env.DISABLE_HARDWARE_ACCELERATION || args.disableHardwareAcceleratio
 app.on('ready', () => {
   const nativeWindow = new NativeWindow()
 
-  log('info', '[main] App is ready!')
+  // log('info', '[main] App is ready!')
 
   autoUpdater.onUpdateDownloaded(() => nativeWindow.sendToRenderer('update-downloaded'))
 

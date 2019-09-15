@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 export class Image extends Component {
   state = {
-    source: ''
+    source: this.props.source || ''
   }
 
   componentWillReceiveProps = props => {

@@ -7,15 +7,17 @@ import WoW from '../../../static/images/backgrounds/battle-for-azeroth.jpeg'
 import Lol2 from '../../../static/images/backgrounds/lol2.jpg'
 
 // Experimental live backgrounds.
-import Kaisa from '../../../static/images/backgrounds/kaisa.mp4'
+/* import Kaisa from '../../../static/images/backgrounds/kaisa.mp4'
 import Neko from '../../../static/images/backgrounds/neko.mp4'
 import Pyke from '../../../static/images/backgrounds/pyke.mp4'
-import Aatrox from '../../../static/images/backgrounds/aatrox.mp4'
+import Aatrox from '../../../static/images/backgrounds/aatrox.mp4' */
 
 export class RandomBackground extends Component {
   state = {
-    backgrounds: [ Kaisa, Neko, Pyke, Aatrox ],
-    selectedBackground: Pyke
+    // backgrounds: [ Kaisa, Neko, Pyke, Aatrox ],
+    // selectedBackground: Pyke
+    backgrounds: [ LoL, Lol2 ],
+    selectedBackground: LoL
   }
 
   componentWillMount = () => {
@@ -39,8 +41,10 @@ export class RandomBackground extends Component {
     return (
       <div className='random-background'>
         <div className='bg-overlay'></div>
-        {/* <Image source={this.state.selectedBackground} className='background' /> */}
-        <video src={selectedBackground} autoPlay muted loop className='background' />
+        <Image source={selectedBackground} className='background' />
+        {
+          // <video src={selectedBackground} autoPlay muted loop className='background' />
+        }
       </div>
     )
   }
