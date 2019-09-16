@@ -47,11 +47,11 @@
 
       &:hover 
         .icon
-          color $text-highlight-dark-color
+          color $text-highlight-color
 
       .icon
         font-size 20px
-        color $text-dark-color
+        color $text-color
         transition .2s ease-in-out
         position absolute
         top 50%
@@ -59,7 +59,7 @@
         transform translate(-50%, -50%)
 
       &.active .icon
-        color $text-highlight-dark-color
+        color $text-highlight-color
 
       // Special rule for showing the search input.
       &.active.search-icon + .search-bar
@@ -90,12 +90,12 @@
     transform translate(-50%, -50%)
     text-align center
     font-size 20px
-    color $text-dark-color
+    color $text-color
     opacity .4
     transition all .4s
 
   .add-game
-    width 650px
+    width 300px
     margin auto
     z-index -999
     opacity 0
@@ -109,7 +109,8 @@
       border-radius 50%
       position absolute
       top 0
-      right 0
+      left 50%
+      transform translateX(-50%)
       width 40px
       height 40px
       box-sizing border-box
@@ -128,6 +129,9 @@
         color rgba(255, 255, 255, .45)
 
     form
+      .file-input
+          margin-bottom 20px
+
       .text-input
         width 300px
         margin-bottom 20px
@@ -136,12 +140,13 @@
           width 270px
 
       .submit-btn
-        position absolute
+        /* position absolute
         right 0
-        bottom 0
-        display inline-block
-        width 150px !important
-        height 40px
+        bottom 0 */
+        // display inline-block
+        // width 150px !important
+        // height 40px
+        margin-top 30px
         box-sizing border-box
         border 2px solid rgba(20, 255, 0, 0.42) !important
         background none
@@ -150,44 +155,45 @@
           border-color rgba(16, 205, 0, 0.8) !important
 
         .label
-          display inline-block
-          line-height 40px
+          // display inline-block
+          // line-height 40px
           color rgba(16, 205, 0, 0.9) !important
 
         &:hover .label
           color rgba(16, 205, 0, 1) !important
 
       .import-btn
-        position absolute
+        /* position absolute
         left 0
-        bottom 0
+        bottom 0 */
+        margin 10px 0
 
       .btn
-        display inline-block
+        // display inline-block
         width 300px
-        height 40px
-        line-height 40px
+        // height 40px
+        // line-height 40px
         box-sizing border-box
-        border 2px solid rgba(255, 255, 255, .2)
-        background none
+        // border 2px solid rgba(255, 255, 255, .2)
+        // background none
 
-        &:hover
-          border-color rgba(255, 255, 255, .45)
+        /* &:hover
+          border-color rgba(255, 255, 255, .45) */
 
-        .label, .icon
+        /* .label, .icon
           display inline-block
           color rgba(255, 255, 255, .8)
 
         &:hover .label, .icon
-          color rgba(255, 255, 255, .9)
+          color rgba(255, 255, 255, .9) */
 
     .add-form
       display block
       height 300px
-      margin-top 110px
+      margin-top 90px
       position relative
 
-      .image-input
+      /* .image-input
         width 275px
         height 170px
         background transparent
@@ -208,15 +214,13 @@
 
           .text, .icon
             vertical-align middle
-            color $text-dark-color
+            color $text-color
             font-size 16px
                 
             .icon
-              margin-right 5px
+              margin-right 5px */
 
-      .file-input
-        .icon
-          margin-right 10px
+      
 
     .import-form
       display block
@@ -439,7 +443,7 @@
           border 2px solid rgba(255, 255, 255, .2)
           
           .label
-            color $text-highlight-dark-color
+            color $text-highlight-color
 
           &:hover
             border-color $active-color
@@ -462,7 +466,7 @@
             display inline-block
             width 5px
             height 5px
-            background $text-dark-color
+            background $text-color
             transition ease-in-out .2s
             border-radius 50%
 
@@ -540,7 +544,7 @@
           left 0
           z-index -1
           opacity 0
-          background $primary-dark-color
+          background $primary-color
           transition .2s ease-in-out
 
         .background

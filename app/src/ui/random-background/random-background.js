@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import { Image } from '../lib/image'
 
 import LoL from '../../../static/images/backgrounds/league-of-legends.jpg' 
-import WoW from '../../../static/images/backgrounds/battle-for-azeroth.jpeg'
-import Lol2 from '../../../static/images/backgrounds/lol2.jpg'
 
 // Experimental live backgrounds.
 /* import Kaisa from '../../../static/images/backgrounds/kaisa.mp4'
@@ -16,7 +14,7 @@ export class RandomBackground extends Component {
   state = {
     // backgrounds: [ Kaisa, Neko, Pyke, Aatrox ],
     // selectedBackground: Pyke
-    backgrounds: [ LoL, Lol2 ],
+    backgrounds: [ LoL ],
     selectedBackground: LoL
   }
 

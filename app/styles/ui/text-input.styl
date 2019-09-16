@@ -4,16 +4,16 @@
   height 40px
   margin auto
   border-radius 5px
-  background-color rgba(255, 255, 255, .15)
+  background-color rgba(255, 255, 255, .1)
   transition all .2s
   cursor pointer
   position relative
 
   &:hover
-    background-color rgba(255, 255, 255, .3)
+    background-color rgba(255, 255, 255, .2)
 
   &.active
-    background-color rgba(255, 255, 255, .3)
+    background-color rgba(255, 255, 255, .2)
 
     .placeholder
       opacity 0
@@ -59,9 +59,9 @@
     // margin auto
     text-align center
     // transition .2s ease-in-out
-    color $text-dark-color
+    color $text-color
     font-size 15px
-    font-family 'Roboto'
+    font-family 'ProximaNova'
     padding 0 15px
 
     &[type='password']
@@ -71,6 +71,7 @@
       // width 300px
       // border-color $active-color
       outline none
+      color $text-highlight-color
 
       // + .placeholder
         // color $active-color
@@ -80,12 +81,12 @@
       // border-color #05c8e6
 
     &::selection
-      background $text-dark-color
+      background $text-color
 
   .placeholder
-    font-family 'Roboto'
+    font-family 'ProximaNova'
     font-size 15px
-    color $text-dark-color
+    color $text-color
     cursor pointer
     // text-transform uppercase
     transition .2s ease-in-out

@@ -1,9 +1,11 @@
 .titlebar
   width 100%
   height 25px
+  background-color $titlebar-bg
   -webkit-app-region drag
 
   .window-controls
+    height 100%
     float right 
     -webkit-app-region no-drag
 
@@ -12,7 +14,7 @@
       height 100%
       padding 0
       float right
-      color $text-dark-color
+      color $text-color
       text-align center
       font-size 14px
       border none
@@ -21,6 +23,11 @@
       line-height 25px
       transition .2s ease-in-out
       -webkit-app-region no-drag
+      background transparent
+
+      &:hover
+        background-color #3e4044
+        color $text-highlight-color
 
       svg
         fill currentColor
@@ -31,10 +38,3 @@
 
       &:active
         background-color #bf0f1d !important 
-
-.app[theme='dark'] .titlebar
-  background-color $titlebar-dark-bg
-
-  .btn:hover
-    background-color #3e4044
-    color $text-highlight-dark-color

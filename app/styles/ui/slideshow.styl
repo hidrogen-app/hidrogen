@@ -29,9 +29,14 @@
     .nav-link
       display inline-block
       margin 10px 30px
-      font-family 'Roboto'
+      font-family 'ProximaNova'
       cursor pointer
       transition .2s ease-in-out
+      color $text-color
+
+      &.active, &:hover
+        color $text-highlight-color
+        text-shadow 0 0 20px $text-highlight-color
 
   .slide
     width 100%
@@ -53,10 +58,3 @@
 
     &.active
       left 0
-      
-.app[theme='dark'] .nav-link
-  color $text-dark-color
-
-  &.active, &:hover
-    color $text-highlight-dark-color
-    text-shadow 0 0 20px $text-highlight-dark-color

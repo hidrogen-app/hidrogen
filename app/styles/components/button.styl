@@ -1,3 +1,66 @@
 button()
   $self = '.btn'
+  $hover = '&:hover'
+  $active = '&:active'
+  $disabled = '&.disabled'
+
+  $icon = $self + '.icon'
+  $label = $self + '.label'
+
+  { $self }
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 160px
+    height: 40px
+    line-height: calc(@height - 4px)
+    text-align: center
+    border: 2px solid rgba(255, 255, 255, .1)
+    border-radius: 4px
+    cursor: pointer
+    transition: .2s ease-in-out
+
+    { $hover }
+      border-color: rgba(255, 255, 255, .2)
+
+      .label
+        color: $text-highlight-color
+
+    { $disabled }
+      pointer-events: none
+      opacity: .6
   
+  .loader
+    display block
+    width max-content
+    height max-content
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
+
+    @keyframes loaderAnimation 
+      0%, 40%, 100%
+        transform scale(0.6)
+      20%
+        transform scale(1)
+
+    .loader-item
+      display inline-block
+      background rgba(255, 255, 255, .3)
+      border-radius 50%
+      width 10px
+      height 10px
+      box-shadow 0 0 50px #fff
+      margin 2px
+      vertical-align middle
+      animation loaderAnimation 1s ease-in-out infinite
+
+      &:nth-child(1)
+        animation-delay -1s
+
+      &:nth-child(2)
+        animation-delay -0.6s
+
+      &:nth-child(3)
+        animation-delay -0.2s
