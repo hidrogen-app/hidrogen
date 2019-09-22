@@ -32,7 +32,7 @@ export class AddForm extends Component {
         <FileInput label='Seleccionar ruta de instalación' onChange={this.setExecPath} className='path-input' />
 
         <TextInput placeholder='Ruta de la imagen de fondo' name='image-path' className='iamge-path-input' value={this.state.imagePath} onChange={({ value }) => this.setState({ imagePath: value })} />
-        <FileInput label='Seleccionar ruta de la imagen' onChange={this.setBackgroundImagePath} className='image-path-input' />
+        <FileInput type='image' label='Seleccionar imagen' onChange={this.setBackgroundImagePath} className='image-path-input' />
 
         <Button label='Importar juegos desde Steam' className='import-btn' onClick={this.props.showImportForm} />
 

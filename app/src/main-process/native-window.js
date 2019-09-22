@@ -8,7 +8,8 @@ const options = {
   width: 1450,
   height: 800,
   show: false,
-  frame: false,
+  frame: process.platform === 'darwin',
+  titleBarStyle: 'hidden',
   webPreferences: {
     nodeIntegration: true,
     webSecurity: false

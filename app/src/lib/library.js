@@ -17,13 +17,17 @@ class Library extends EventEmitter {
     try {
       if (auth.getAuthedUser()) {
         fetchedGames = auth.getAuthedUser().get('games')
+        console.log(fetchedGames)
       } else {
         // fetchedGames = await localDB.get('games')
       }
 
+      const uuid = auth.getAuthedUser().get('uid')
+
       if (fetchedGames) {
         for (let game in fetchedGames) {
-          games.push(new Game(fetchedGames[game]))
+          let backgroundImageUrl = await firebase.storage().ref(`users/${uuid}/games/${fetchedGames[game].uid}.jpg`).getDownloadURL()
+          games.push(new Game(Object.assign(fetchedGames[game], { backgroundImageUrl })))
         }
       }
 
@@ -44,13 +48,13 @@ class Library extends EventEmitter {
       const uuid = auth.getAuthedUser().get('uid')
       const guid = uuidv4().split('-').join('')
 
-      console.log(auth.getAuthedUser())
-      console.log(uuid)
+      await firebase.storage().ref(`users/${uuid}/games/${guid}.jpg`).put(game.imagePath)
         
       const gameData = {
         uid: guid,
         title: game.title,
         execPath: game.execPath,
+        // backgroundImageUrl: firebase.storage().ref(`users/${uuid}/games/${guid}`).getDownloadURL(),
         provider: 'hidrogen',
         metadata: {
           addedOn: new Date().toString().split(' (')[0]

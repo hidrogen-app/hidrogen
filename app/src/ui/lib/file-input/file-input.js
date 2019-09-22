@@ -28,9 +28,23 @@ export class FileInput extends Component {
     })
   }
 
+  returnImage = event => {
+    const files = event.target.files
+    if (files) {
+      this.setState({ files })
+      this.props.onChange({ files })
+    } else {
+      return
+    }
+  }
+
   render = () => {
+    const { type } = this.state
     return (
-      <Button icon={this.props.icon} label={this.props.label ? this.props.label : null} className='file-input' onClick={this.showExplorerDialog} />
+      type !== 'image'
+        ? <Button icon={this.props.icon} label={this.props.label ? this.props.label : null} className='file-input' onClick={this.showExplorerDialog} />
+        : <input type='file' onChange={this.returnImage} />
+        
     )
   }
 }

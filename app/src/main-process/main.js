@@ -16,6 +16,8 @@ require('dotenv/config')
 const args = getLaunchArguments(process.argv)
 const startTime = Date.now()
 
+
+let nativeWindow
 // log('info', '[main] App is starting...')
 
 const autoUpdater = new AutoUpdater(app.getVersion(), process.env.UPDATE_FEED_URL)
@@ -27,7 +29,7 @@ if (process.env.DISABLE_HARDWARE_ACCELERATION || args.disableHardwareAcceleratio
 }
 
 app.on('ready', () => {
-  const nativeWindow = new NativeWindow()
+  nativeWindow = new NativeWindow()
 
   // log('info', '[main] App is ready!')
 
@@ -39,7 +41,17 @@ app.on('ready', () => {
   })
 })
 
-app.on('window-all-closed', () => app.quit())
+app.on('activate', () => {
+  if (nativeWindow === null) {
+    nativeWindow = new NativeWindow()
+  }
+})
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
 
 ipcMain.on('quit-and-install-update', () => autoUpdater.quitAndInstall())
 

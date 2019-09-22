@@ -26,7 +26,8 @@ export class NativeWindowController {
   }
 
   close = () => {
-    remote.app.quit()
+    // remote.app.quit()
+    this.browserWindow.close()
   }
 }
 

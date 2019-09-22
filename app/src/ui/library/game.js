@@ -9,7 +9,7 @@ export class Game extends Component {
     uid: this.props.uid,
     title: this.props.title || 'Cool game',
     execPath: this.props.execPath,
-    imageUrl: this.props.imageUrl,
+    imageUrl: this.props.background,
     showMenu: false
   }
 

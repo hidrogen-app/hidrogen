@@ -60,6 +60,12 @@ export class SignIn extends Component {
 
   }
 
+  onEnterPressed = event => {
+    if (event.keyCode === 13) {
+      this.login()
+    }
+  }
+
   render = () => {
     const { showPassword, loginSuccessful, isSubmitting, email, password } = this.state
 
@@ -74,8 +80,8 @@ export class SignIn extends Component {
         { !loginSuccessful ? <Text className='error-message'> You shall not pass! Wrong email or password! </Text> : null }
 
         <div className='form'>
-          <TextInput placeholder='Correo electrónico' name='email' onChange={this.handleEmailChange} />
-          <TextInput placeholder='Contraseña' name='password' className='password' secureTextEntry={showPassword} onChange={this.handlePasswordChange} />
+          <TextInput placeholder='Correo electrónico' name='email' onChange={this.handleEmailChange} onKeyDown={this.onEnterPressed} />
+          <TextInput placeholder='Contraseña' name='password' className='password' secureTextEntry={showPassword} onChange={this.handlePasswordChange} onKeyDown={this.onEnterPressed} />
           { /* <Button icon='google' label='Iniciar sesión con Google' className='google-sign-in-btn' onClick={auth.signInWithGoogle}/> */ }
         </div>
 

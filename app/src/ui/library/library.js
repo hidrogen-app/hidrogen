@@ -24,7 +24,7 @@ export class Library extends Component {
   componentDidMount = () => {
     auth.onAuthStateChanged(user => {
       if (user) {
-        this.fetchGames()
+        this.setState({ games: [] }, () => this.fetchGames())
       } else {
         this.setState({ games: [] })
       }
@@ -43,6 +43,7 @@ export class Library extends Component {
       }
     } catch (err) {
       console.log("Error al importar juegos")
+      console.log(err)
     }
   }
 
@@ -66,7 +67,7 @@ export class Library extends Component {
   add = async gameObject => {
     try {
       const game = await library.add(gameObject)
-      this.setState({ game: this.state.games.push(game) })
+      this.setState({ game: this.state.games.push(game), displayAddGame: false })
 
       /* this.setState(state => ({ 
         games: state.games.push(game)
@@ -104,7 +105,7 @@ export class Library extends Component {
           uid={game.get('uid')}
           title={game.get('title')}
           execPath={game.get('execPath')}
-          background={game.get('background')}
+          background={game.get('backgroundImageUrl')}
           icon={game.get('icon')}
           provider={game.get('provider')}
           onRemove={onRemoveGame}

@@ -93,6 +93,7 @@ export class TextInput extends Component {
           onChange={this.handleInputChange}
           onFocus={this.onDidFocus}
           onBlur={this.onDidBlur}
+          onKeyDown={this.props.onKeyDown}
           className='input'
           ref={this.input}
         />

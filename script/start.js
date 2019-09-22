@@ -15,16 +15,17 @@ process.on('uncaughtException', err => {
   process.exit(1)
 })
 
-let binary
-if (process.platform === 'win32') {
-  binary = path.resolve(__dirname, '..', 'dist', 'Hidrogen.exe')
-} else {
-  console.log(chalk.red('I can\'t run on', process.platform))
-  process.exit(1)
-}
-
 const startInProduction = () => {
   console.log(chalk.cyan('Starting Hidrogen in production mode...'))
+
+  let binary
+  if (process.platform === 'win32') {
+    binary = path.resolve(__dirname, '..', 'dist', 'Hidrogen.exe')
+  } else {
+    console.log(chalk.red('I can\'t run on', process.platform))
+    process.exit(1)
+  }
+
   const runningApp = spawn(binary, [], {})
   runningApp.on('close', () => process.exit(0))
 }
