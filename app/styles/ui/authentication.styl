@@ -1,8 +1,3 @@
-.app.authed
-  .authentication
-    opacity 0
-    pointer-events none
-
 .authentication
   width 100%
   height calc(100% - 25px)
@@ -11,6 +6,24 @@
   transition .4s ease-in-out
 
 
+.side-panel
+  width 40%
+  height 70%
+  border-left 3px solid rgba(255, 255, 255, .2)
+  centered()
+  transform translateY(-50%)
+
+  .text
+    position absolute
+    top 45%
+    left 50%
+    transform translate(-50%, -50%)
+    font-family 'GravityLight'
+    font-size 50px
+    text-align center
+    color #ffffffb5 !important
+    width 90%
+
 // NEW SIGNIN
 
 .signin
@@ -18,6 +31,7 @@
   height calc(70px + 70px + 30px)
   // height calc(70px + 70px + 170px)
   centered()
+  left 30%
 
   .form
     position absolute
@@ -48,31 +62,32 @@
         vertical-align middle
 
   .signin-btn
-    position absolute
-    top 20px
-    right 0
-    border-radius 50%
-    width 60px
-    height 60px
-    border-width 3px
-    border-color rgba(255, 255, 255, .25)
-    background none
+    // Dialog styles are overwritting this styles.
+    position absolute !important
+    top 20px !important
+    right 0 !important
+    border-radius 50% !important
+    width 60px !important
+    height 60px !important
+    border-width 3px !important
+    border-color rgba(255, 255, 255, .25) !important
+    background none !important
 
     &:hover
-      border-color rgba(255, 255, 255, .4)
-      background none
+      border-color rgba(255, 255, 255, .4) !important
+      background none !important
 
       .icon
-        color rgba(255, 255, 255, .4)
+        color rgba(255, 255, 255, .4) !important
 
     &.disabled
       .icon-lock
-        opacity 1
-        z-index 5
+        opacity 1 !important
+        z-index 5 !important
 
       .icon-navigate_next
-        opacity 0
-        z-index -99
+        opacity 0 !important
+        z-index -99 !important
 
     &.submitting
       .loader
@@ -84,10 +99,10 @@
         z-index -99
 
     .icon
-      position absolute
-      top 50%
-      left 50%
-      transform translate(-50%, -50%)
+      position absolute !important
+      top 50% !important
+      left 50% !important
+      transform translate(-50%, -50%) !important 
       font-size 25px
       color rgba(255, 255, 255, .3)
       transition all .2s

@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { Button, Text, Image, Form, TextInput } from '../lib'
 
-import { auth } from '../../lib/auth'
+/* import { auth } from '../../lib/auth' */
+import { signOut } from '../../lib/auth.updated'
+
+import { appState } from '../../lib/app-store'
 
 export class Profile extends Component {
   state = {
@@ -17,18 +20,22 @@ export class Profile extends Component {
   }
 
   componentDidMount = () => {
-    if (auth.getAuthedUser()) {
-      this.set(auth.getAuthedUser())
-    } else {
-      auth.onAuthStateChanged(user => user ? this.set(user) : null)
-    }
+    const { user } = appState.getState()
+    user
+      ? this.set(user)
+      : appState.onAuthStateChanged(user => user ? this.set(user) : null)
+
+    /* const { user } = authState.getState()
+    user
+      ? this.set(user)
+      : authState.onStateUpdated(state => state.user ? this.set(state.user) : null) */
   }
 
   set = user => {
     this.setState({
-      username: user.get('username'),
-      email: user.get('email'),
-      picture: user.get('pictureUrl')
+      username: user.username,
+      email: user.email,
+      picture: user.pictureUrl
     })
   }
 
@@ -41,7 +48,7 @@ export class Profile extends Component {
     }
     
     try {
-      await auth.updateUser(editedUser)
+      // await auth.updateUser(editedUser)
     } catch (err) {
       console.log(err)
     }
@@ -113,7 +120,7 @@ export class Profile extends Component {
               // <Button label='Editar' className='edit-btn' onClick={() => this.setState({ editMode: true })} />
               // <Button label='Detalles de la cuenta' className='details-btn' onClick={() => this.setState({ detailsMode: true })} />
             }
-            <Button label='Cerrar sesión' className='sign-out-btn' onClick={auth.signOut} />
+            <Button label='Cerrar sesión' className='sign-out-btn' onClick={signOut} />
           </div>
         </div>
 

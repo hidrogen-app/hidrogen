@@ -1,32 +1,22 @@
-import { firebase } from './firebase'
-import { SignInStore } from './stores/sign-in-store'
-import { User } from '../models/user'
-import { log } from './log'
+import { firebase, signInWithFirebase } from './firebase'
+import { appState } from './app-store'
 
-const signInStore = new SignInStore()
-
-export const getAccountInfo = async uuid => {
+const getAccountInfo = async uuid => {
   try {
-    const rawAccountInfo = await firebase.database().ref(`users/${uuid}`).once('value')
-    return Promise.resolve(rawAccountInfo.val())
+    const userAccountInfo = await firebase.database().ref(`users/${uuid}`).once('value')
+    return Promise.resolve(userAccountInfo.val())
   } catch (err) {
     return Promise.reject(err)
   }
 }
 
-export const getCurrentUser = () => {
-  return signInStore.get('user')
-}
-
-export const signIn = async (credentials, session) => {
+export const signIn = async (credentials, persistence) => {
   try {
-    const { user } = await firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-    const uuid = user.uid
-    const accountInfo = getAccountInfo(uuid)
-    const signedInUser = new User(accountInfo)
-
-    await signInStore.set('user', signedInUser)
-    return Promise.resolve(signedInUser)
+    const uuid = await signInWithFirebase(credentials)
+    const user = await getAccountInfo(uuid)
+    appState.setState({ user })
+    console.log(`%c[auth] Signed in successfully! Got this user account from database:\n ${JSON.stringify(user)}`, 'background: #222; color: #bada55')
+    return Promise.resolve(user)
   } catch (err) {
     return Promise.reject(err)
   }
@@ -34,27 +24,19 @@ export const signIn = async (credentials, session) => {
 
 export const signUp = async credentials => {
   try {
-    const { user } = await firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password.toString())
-    const uuid = user.uid
-    const createdDate = new Date().toString().split(' (')[0]
-    const accountInfo = {
-      uid: uuid,
-      username: credentials.username,
+    const uuid = await signUpWithFirebase(credentials)
+    const user = {
+      uuid: uuid,
+      name: credentials.name,
       email: credentials.email,
-      pictureUrl: 'defaultPictureUrl',
-      games: [],
-      settings: [],
-      metadata: {
-        createdOn: createdDate,
-        lastSignInTime: createdDate
-      }
+      pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/hidrogen-ea5fc.appspot.com/o/users%2FAFQbbDHAhKPXHqpi8jZxSXXQqoI3%2FprofilePicture?alt=media&token=de478a07-4873-45ae-b769-6dbf59589290',
+      games: []
     }
+    console.log(`%c[auth] User has signed up successfully! \n ${JSON.stringify(user)}`, 'background: #222; color: #bada55')
 
-    const signedUpUser = new User(accountInfo)
-
-    await firebase.database().ref(`users/${uuid}`).set(accountInfo)
-    await signInStore.set('user', signedUpUser)
-    return Promise.resolve(signedUpUser)
+    appState.setState({ user })
+    await firebase.database().ref(`users/${uuid}`).set(user)
+    return Promise.resolve(user)
   } catch (err) {
     return Promise.reject(err)
   }
@@ -63,19 +45,11 @@ export const signUp = async credentials => {
 export const signOut = async () => {
   try {
     await firebase.auth().signOut()
-    await signInStore.set('user', null)
-    log.info('[Auth] User signed out successfully.')
+    console.log(`%c[auth] User has signed out successfully!`, 'background: #222; color: #bada55')
+    appState.setState({ user: null })
     return Promise.resolve()
   } catch (err) {
-    log.error(`[Auth] User couldn\`t be signed out. Something went wrong: ${err}`)
-    return Promise.reject()
+    console.log(err)
+    return Promise.reject(err)
   }
-}
-
-export const isUserAuthenticated = () => {
-  return Boolean(signInStore.get('user'))
-}
-
-export const onAuthStateChanged = callback => {
-  signInStore.observe('user', callback)
 }

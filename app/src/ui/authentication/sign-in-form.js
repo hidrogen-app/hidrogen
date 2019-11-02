@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import classnames from 'classnames'
-
 import { Text, TextInput, Button, Switch, Form, Icon } from '../lib'
-
-import { auth } from '../../lib/auth'
 import { SignInUpButton } from './signinup-button'
+import { auth } from '../../lib/auth'
 
-export class SignIn extends Component {
+export class SignInForm extends React.Component {
   state = {
     authPersistence: false,
     loginSuccessful: true,
@@ -16,7 +14,27 @@ export class SignIn extends Component {
     password: ''
   }
 
-  login = () => {
+  componentWillReceiveProps = props => {
+    this.setState({
+      isSubmitting: props.isSubmitting,
+      loginSuccessful: props.success
+    })
+  }
+
+  onSubmit = () => {
+    this.setState({ isSubmitting: true }, () => {
+      const { email, password, authPersistence } = this.state
+      const { onSubmit } = this.props
+      if (typeof onSubmit === 'function') {
+        const credentials = { email, password }
+        onSubmit({
+          credentials, authPersistence
+        })
+      }
+    }) 
+  }
+
+  /* login = () => {
     this.setState({ isSubmitting: true }, () => {
       const { email, password, authPersistence } = this.state
       const credentials = { email, password }
@@ -38,7 +56,7 @@ export class SignIn extends Component {
           // formattedConsoleLog('Authentication', 'error', `Something went wrong: ${err}}`)
         })
     })
-  }
+  } */
 
   handleEmailChange = ({ value }) => {
     this.setState({ email: value })
@@ -62,12 +80,13 @@ export class SignIn extends Component {
 
   onEnterPressed = event => {
     if (event.keyCode === 13) {
-      this.login()
+      this.onSubmit()
     }
   }
 
   render = () => {
     const { showPassword, loginSuccessful, isSubmitting, email, password } = this.state
+    const { onSubmit } = this
 
     const classname = classnames(
       'signin',
@@ -82,53 +101,13 @@ export class SignIn extends Component {
         <div className='form'>
           <TextInput placeholder='Correo electrónico' name='email' onChange={this.handleEmailChange} onKeyDown={this.onEnterPressed} />
           <TextInput placeholder='Contraseña' name='password' className='password' secureTextEntry={showPassword} onChange={this.handlePasswordChange} onKeyDown={this.onEnterPressed} />
-          { /* <Button icon='google' label='Iniciar sesión con Google' className='google-sign-in-btn' onClick={auth.signInWithGoogle}/> */ }
         </div>
 
-        {/* <Button
-          icon={!email || !password ? 'lock' : 'navigate_next'}
-          className='signin-btn'
-          isSubmitting={isSubmitting}
-          disabled={!email || !password}
-          onClick={this.login}
-        /> */}
-
-        <SignInUpButton disabled={!email || !password} isSubmitting={isSubmitting} onClick={this.login} className='signin-btn' />
+        <SignInUpButton disabled={!email || !password} isSubmitting={isSubmitting} onClick={onSubmit} className='signin-btn' />
 
         <div className='links'>
-          
-
-          
-          {
-            // <Switch label='Mantenerme conectado' onStateChange={this.toggleKeepLoggedIn} className='stay-signedin-switch' />
-            // <Text> Iniciar sesión con <Icon name='google' /> </Text>
-            // <Text className='anonymous-signin-btn'> Iniciar sesión de manera anónima. </Text>
-            // <Text onClick={this.sendForgottenPasswordEmail} className='forgotten-password'> He olvidado la contraseña. </Text>
-          }
-          
-          <Text onClick={this.props.toggleForm}> ¿Eres nuevo en Hidrogen? ¡Regístrate! </Text>
+          <Text onClick={this.props.toggleAuthenticationForm}> ¿Eres nuevo en Hidrogen? ¡Regístrate! </Text>
         </div>
-        
-
-        
-
-        {/* <Switch label='Show password' onStateChange={this.togglePassword} /> */}
-        
-
-        {
-          /* <Button
-            label='Iniciar sesión'
-            behaviour='submit'
-            isSubmitting={isSubmitting}
-            disabled={!email || !password}
-            onClick={this.login}
-          /> */
-        }
-
-        
-
-        
-        
       </div>
     )
   }

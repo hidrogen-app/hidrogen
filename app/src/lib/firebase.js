@@ -12,3 +12,21 @@ const config = {
 }
 
 export const firebase = firebaseAPI.initializeApp(config)
+
+export const signInWithFirebase = async ({ email, password }) => {
+  try {
+    const { user } = await firebase.auth().signInWithEmailAndPassword(email, password)
+    return Promise.resolve(user.uid)
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}
+
+export const signUpWithFirebase = async ({ email, password }) => {
+  try {
+    const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password.toString())
+    return Promise.resolve(user.uid)
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}

@@ -4,7 +4,7 @@ import { auth } from '../../lib/auth'
 import { SignInUpButton } from './signinup-button'
 import { Text, TextInput, Button, Switch, Form } from '../lib'
 
-export class SignUp extends Component {
+export class SignUpForm extends Component {
   state = {
     hiddenPassword: true,
     error: false,
@@ -12,6 +12,25 @@ export class SignUp extends Component {
     username: '',
     email: '',
     password: '',
+  }
+
+  componentWillReceiveProps = props => {
+    this.setState({
+      isSubmitting: props.isSubmitting,
+    })
+  }
+
+  onSubmit = () => {
+    /* this.setState({ isSubmitting: true }, () => {
+      const { username, email, password } = this.state
+      const { onSubmit } = this.props
+      const credentials = { username, email, password }
+      if (typeof onSubmit === 'function') {
+        onSubmit({ credentials })
+      }
+    }) */
+
+    this.setState({ isSubmitting: true })
   }
 
   signUp = () => {
@@ -44,6 +63,12 @@ export class SignUp extends Component {
     this.setState({ hiddenPassword: !event.switchState.active })
   }
 
+  onEnterPressed = event => {
+    if (event.keyCode === 13) {
+      this.onSubmit()
+    }
+  }
+
   render = () => {
     const { username, email, password, isSubmitting } = this.state
 
@@ -51,16 +76,16 @@ export class SignUp extends Component {
       <div className='signup'>
         
         <div className='form'>
-          <TextInput placeholder='Nombre de usuario' name='username' onChange={this.handleUsernameChange} />
-          <TextInput placeholder='Correo electrónico' name='email' onChange={this.handleEmailChange} />
-          <TextInput placeholder='Contraseña' name='password' secureTextEntry={this.state.hiddenPassword} onChange={this.handlePasswordChange} />
+          <TextInput placeholder='Nombre de usuario' name='username' onChange={this.handleUsernameChange} onKeyDown={this.onEnterPressed} />
+          <TextInput placeholder='Correo electrónico' name='email' onChange={this.handleEmailChange} onKeyDown={this.onEnterPressed} />
+          <TextInput placeholder='Contraseña' name='password' secureTextEntry={this.state.hiddenPassword} onChange={this.handlePasswordChange} onKeyDown={this.onEnterPressed} />
         </div>
 
-        <SignInUpButton disabled={!username || !email || !password} isSubmitting={isSubmitting} onClick={this.signUp} className='signup-btn' />
+        <SignInUpButton disabled={!username || !email || !password} isSubmitting={isSubmitting} onClick={this.onSubmit} className='signup-btn' />
 
         <div className='links'>
           <Switch label='Mostrar contraseña' onStateChange={this.togglePassword} className='toggle-password-btn' />
-          <Text onClick={this.props.toggleForm}> Ya tengo una cuenta. </Text>
+          <Text onClick={this.props.toggleAuthenticationForm}> Ya tengo una cuenta. </Text>
         </div>
 
       </div>

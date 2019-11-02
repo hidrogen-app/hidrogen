@@ -10,6 +10,10 @@ import { GameContainer } from './game-container'
 import { AddGame } from './add-game'
 import { Game } from './game'
 
+import { authState } from '../../lib/auth.updated'
+
+import { appState } from '../../lib/app-store'
+
 const { ipcRenderer } = window.require('electron')
 
 
@@ -22,19 +26,20 @@ export class Library extends Component {
   }
 
   componentDidMount = () => {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ games: [] }, () => this.fetchGames())
-      } else {
-        this.setState({ games: [] })
-      }
+    appState.onAuthStateChanged(user => {
+      user
+        ? this.setState({ games: [] }, () => this.fetchGames())
+        : this.setState({ games: [] })
     })
 
     ipcRenderer.on('update-downloaded', () => this.setState({ updateAvailable: true }))
   }
 
   fetchGames = async () => {
-    try {
+    console.log(`%c[lib] Started fetching games from appState...`, 'background: #222; color: #bada55')
+    const { games } = appState.getState()
+    console.log(`%c[lib] Got the following games from appState:\n${JSON.stringify(games)}`, 'background: #222; color: #bada55')
+    /* try {
       const games = await library.fetchAll()
       if (games) {
         this.setState({ games })
@@ -44,7 +49,7 @@ export class Library extends Component {
     } catch (err) {
       console.log("Error al importar juegos")
       console.log(err)
-    }
+    } */
   }
 
   search = ({ value }) => {
@@ -150,6 +155,12 @@ export class Library extends Component {
         {games.length ? null : <Text className='empty-library-message'> Esto está muy vacío...<br/> ¡Añade un juego a tu biblioteca! </Text> }
 
         <AddGame onAddGame={this.add} onCancel={() => this.setState({ displayAddGame: false })} />
+
+        {/* <Dialog opened={true}>
+          <Dialog.Body>
+            Soy un dialogo mmm...
+          </Dialog.Body>
+        </Dialog> */}
 
         <GameContainer view={viewType}>
 

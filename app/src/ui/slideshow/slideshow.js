@@ -1,31 +1,32 @@
 import React, { Component } from 'react'
-import { auth } from '../../lib/auth'
-
+import classNames from 'classnames'
 import { Navigation } from './navigation'
 import { Slide } from './slide'
+
+import { appState } from '../../lib/app-store'
 
 export class Slideshow extends Component {
   state = {
     items: this.props.items || [],
     activeItem: this.props.activeItem || this.props.items[0],
-    renderNav: false
+    renderNav: true,
+    hidden: true
   }
 
   componentDidMount = () => {
-    if (auth.getAuthedUser()) {
-      this.setState(state => ({ activeItem: state.items[0], renderNav: true }))
-      this.state.items[3].label = auth.getAuthedUser().get('username')
-    } else {
-      this.setState(state => ({ activeItem: state.items[3], renderNav: false }))
-    }
-
-    auth.onAuthStateChanged(user => {
+    appState.onAuthStateChanged(user => {
       if (user) {
         this.setState(state => ({ activeItem: state.items[0], renderNav: true }))
-        this.state.items[3].label = auth.getAuthedUser().get('username')
+        this.state.items[3].label = user.username
       } else {
-        this.setState(state => ({ activeItem: state.items[3], renderNav: false }))
+        // this.setState(state => ({ activeItem: state.items[3], renderNav: false }))
       }
+    })
+
+    appState.onDialogStateChanged(isDialogActive => {
+      console.log('Dialog updated')
+      const shouldHideSlideshow = isDialogActive
+      this.setState({ hidden: shouldHideSlideshow })
     })
   }
 
@@ -52,14 +53,14 @@ export class Slideshow extends Component {
   }
 
   render = () => {
-    const { activeItem, renderNav, items } = this.state
+    const { activeItem, renderNav, items, hidden } = this.state
 
-    if (auth.getAuthedUser()) {
+    /* if (auth.getAuthedUser()) {
       items[3].label = auth.getAuthedUser().get('username')
 
-      /* if (items[items.length - 1].id === 'authentication') {
+      if (items[items.length - 1].id === 'authentication') {
         items.pop()
-      } */
+      }
 
       
 
@@ -84,7 +85,7 @@ export class Slideshow extends Component {
         })
         
       }
-    }
+    } */
 
     
 
@@ -110,8 +111,13 @@ export class Slideshow extends Component {
       
     } */
 
+    const className = classNames(
+      'slideshow',
+      { hidden: hidden }
+    )
+
     return (
-      <div className='slideshow'>
+      <div className={className}>
         <Navigation 
           items={this.state.items} 
           activeItem={activeItem} 

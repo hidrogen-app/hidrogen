@@ -9,8 +9,11 @@ import { Loader } from './loader'
 import { Changelog } from './changelog'
 
 import { slideshowItems } from '../models/slideshow-items'
-import { auth } from '../lib/auth'
+// import { auth } from '../lib/auth'
 import { getCLIArgsFromMainProcess } from '../lib/cli'
+import { appState } from '../lib/app-store'
+
+// import { authState } from '../lib/auth.updated'
 
 export class App extends Component {
   state = {
@@ -21,10 +24,23 @@ export class App extends Component {
   }
 
   componentDidMount = () => {
+    /* appState.onAuthStateChanged(user => {
+      user
+        ? this.setState({ authState: true })
+        : this.setState({ authState: false })
+    }) */
+
+    /* authState.onStateUpdated(state => {
+      state.user
+        ? this.setState({ authState: true })
+        : this.setState({ authState: false })
+    })
+
+
     auth.onAuthStateChanged(user => {
       user ? this.setState({ authState: true }) : this.setState({ authState: false })
       this.setState({ showChangelog: true })
-    })
+    }) */
 
     /* let firstTime = true
     let justUpdated = true

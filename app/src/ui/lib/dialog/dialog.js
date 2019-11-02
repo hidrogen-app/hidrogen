@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { Header } from './header'
 import { Body } from './body'
 import { Footer } from './footer'
+import { appState } from '../../../lib/app-store'
 
 const DialogContext = React.createContext()
 export const DialogContextConsumer = ({ children }) => {
@@ -34,6 +35,13 @@ export class Dialog extends Component {
     this.setState({
       opened: props.opened
     })
+  }
+
+  componentDidUpdate = () => {
+    const { opened } = this.state
+    opened
+      ? appState.setState({ isDialogActive: true })
+      : appState.setState({ isDialogActive: false })
   }
 
   close = () => {
