@@ -12,6 +12,7 @@ export class Profile extends Component {
     username: '',
     email: '',
     picture: '',
+    games: 0,
     editedUsername: '',
     editedEmail: '',
     editMode: false,
@@ -35,7 +36,8 @@ export class Profile extends Component {
     this.setState({
       username: user.username,
       email: user.email,
-      picture: user.pictureUrl
+      picture: user.pictureUrl,
+      games: 0 // objectToArray(user.games).length
     })
   }
 
@@ -55,7 +57,7 @@ export class Profile extends Component {
   }
 
   render = () => {
-    const { username, email, picture, editMode, changePassword } = this.state
+    const { username, email, picture, games, editMode, changePassword } = this.state
 
     const className = classNames(
       'profile',
@@ -67,7 +69,7 @@ export class Profile extends Component {
     return (
       <div className={className}>
 
-        <Form className='edit-form'>
+        {/* Form className='edit-form'>
           <div className='image-input'>
             <div className='overlay'>
               <Text> Editar </Text>
@@ -95,7 +97,7 @@ export class Profile extends Component {
           </div>
 
           <Button icon='close' onClick={() => this.setState({ editMode: false, changePassword: false })} className='cancel-btn' />
-        </Form>
+        </Form> */}
 
         <div className='summary'>
           {
@@ -107,23 +109,34 @@ export class Profile extends Component {
           <div className='side-info'>
             <Text className='username'>
               <Text className='nick'> {username} </Text>
-              {
-                // <Text className='tag'> #2081 </Text>
-              }
+              <Text className='tag'> #2081 </Text>
             </Text>
             <Text className='email'> { email } </Text>
           </div>
 
-          <div className='buttons'>
-            
-            {
-              // <Button label='Editar' className='edit-btn' onClick={() => this.setState({ editMode: true })} />
-              // <Button label='Detalles de la cuenta' className='details-btn' onClick={() => this.setState({ detailsMode: true })} />
-            }
-            <Button label='Cerrar sesión' className='sign-out-btn' onClick={signOut} />
+          <div className='stats'>
+            <div className='stat game-stat'>
+              <Text className='number'> { games } </Text>
+              <Text className='label'> Juegos </Text>
+            </div>
+            <div className='stat friend-stat'>
+              <Text className='number'> 239 </Text>
+              <Text className='label'> Amigos </Text>
+            </div>
           </div>
+
         </div>
 
+        <div className='buttons'>
+
+          {
+
+            // <Button label='Detalles de la cuenta' className='details-btn' onClick={() => this.setState({ detailsMode: true })} />
+          }
+          <Button label='Editar' className='edit-btn' onClick={() => this.setState({ editMode: true })} />
+          <Button label='Cerrar sesión' className='sign-out-btn' onClick={signOut} />
+        </div>
+      
       </div>
     )
   }

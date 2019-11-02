@@ -1,25 +1,27 @@
 import generateUID from 'uuid/v4'
-import { firebase } from './firebase'
+/* import { firebase } from './firebase'
 import { getCurrentUser } from './auth'
 import { objectToArray as ota } from './util'
-import { LibraryStore } from './stores/library-store'
-import { Game } from '../models/game'
-import { log } from './log'
+import { LibraryStore } from './stores/library-store' */
 
-const libraryStore = new LibraryStore()
+
+import { appState } from './app-store'
+
+export const parseUserGameObject = gameObject => {
+  let gameArray = []
+  for (let game in gameObject) {
+    gameArray.push(game)
+  }
+  return gameArray
+}
 
 export const fetchGames = async () => {
   try {
-    log.info('[Library] Fetching games from user...')
-
-    const fetchedGames = getCurrentUser().games
-    const games = ota(fetchedGames)
-    await libraryStore.set('games', games)
-
-    log.info('[Library] Games were fetched successfully.')
+    const games = parseUserGameObject(appState.getState().user.games)
+    appState.setState({ games })
     return Promise.resolve(games)
   } catch (err) {
-    log.error(`[Library] Something went wrong during game fetching process... ${err}`)
+    console.error('Error')
     return Promise.reject(err)
   }
 }

@@ -13,6 +13,7 @@ import { Game } from './game'
 import { authState } from '../../lib/auth.updated'
 
 import { appState } from '../../lib/app-store'
+import { fetchGames } from '../../lib/library.updated'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -37,8 +38,21 @@ export class Library extends Component {
 
   fetchGames = async () => {
     console.log(`%c[lib] Started fetching games from appState...`, 'background: #222; color: #bada55')
-    const { games } = appState.getState()
-    console.log(`%c[lib] Got the following games from appState:\n${JSON.stringify(games)}`, 'background: #222; color: #bada55')
+    // const { games } = appState.getState()
+    
+
+    try {
+      const games = await fetchGames()
+      console.log(`%c[lib] Got the following games from appState:\n${JSON.stringify(games)}`, 'background: #222; color: #bada55')
+      if (games) {
+        this.setState({ games })
+      } else {
+        this.setState({ games: [] })
+      }
+    } catch (err) {
+      console.log("Error al importar juegos")
+      console.log(err)
+    }
     /* try {
       const games = await library.fetchAll()
       if (games) {
@@ -106,13 +120,13 @@ export class Library extends Component {
     if (games.length) {
       let renderedGames = games.map(game => (
         <Game 
-          key={game.get('uid')}
-          uid={game.get('uid')}
-          title={game.get('title')}
-          execPath={game.get('execPath')}
-          background={game.get('backgroundImageUrl')}
-          icon={game.get('icon')}
-          provider={game.get('provider')}
+          key={game.uid}
+          uid={game.uid}
+          title={game.title}
+          execPath={game.execPath}
+          background={game.backgroundImageUrl}
+          icon={game.icon}
+          provider={game.provider}
           onRemove={onRemoveGame}
         />
       ))

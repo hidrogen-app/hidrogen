@@ -148,6 +148,26 @@
     top 30%
     left 50%
     transform translate(-50%, -50%)
+    display flex
+    align-items center
+
+    .stats
+      display inline-block
+      margin-left 50px
+
+      .stat
+        display inline-block
+        margin 0 20px
+        text-align center
+
+        .number
+          display block
+          font-weight bold
+          font-size 16px
+
+        .label
+          display block
+          font-size 15px
 
     .picture
       display inline-block
@@ -166,7 +186,7 @@
     .side-info
       display inline-block
       width max-content
-      height 63px // 55px
+      height 70px // 55px
       vertical-align middle
 
       .username
@@ -198,8 +218,26 @@
         display block
         font-size 16px
 
-    .buttons
-      width 150px
+  .buttons
+    position absolute
+    width 600px
+    top 45%
+    height 44px
+
+    .edit-btn
+      position absolute
+      right 0
+
+    .sign-out-btn
+      border 2px solid rgba(255, 22, 22, 0.4)
+
+      .label
+        color rgba(255, 22, 22, 0.8)
+
+      &:hover
+        border-color rgba(255, 22, 22, 0.7)
+
+     /*  width 150px
       height 70px // 120px
       margin-left 140px
       display inline-block
@@ -228,7 +266,7 @@
           color rgba(255, 22, 22, 0.8)
 
         &:hover
-          border-color rgba(255, 22, 22, 0.7)
+          border-color rgba(255, 22, 22, 0.7) */
 
     /* .btn
       position absolute
