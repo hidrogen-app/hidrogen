@@ -33,14 +33,29 @@
   .toolbar
     width max-content
     margin auto
-    height 65px
+    height 40px
     transition .2s ease-in-out
+
+    .buttons
+      display inline-block
+      background-color rgba(255, 255, 255, .1)
+      backdrop-filter blur(3px)
+      height 40px
+      border-radius 4px
+
+    .searchbar-box
+      display inline-block
+      background-color rgba(255, 255, 255, .1)
+      backdrop-filter blur(3px)
+      height 40px
+      border-radius 4px
+      margin 0 10px
 
     .btn
       width 25px
-      height 25px
+      height 40px
       display inline-block
-      margin 20px
+      margin 0 10px
       background none
       border none
       position relative
@@ -75,13 +90,30 @@
     .search-bar
       display inline-block
       position relative
-      top -25px
+      top -15px
       width 0
+
+      background none
+      backdrop-filter none
+
+      &:hover
+        background none
+
+      &.active
+        background none
 
       .input
         width inherit
         text-align left
-        padding 0 10px
+        // padding 0 10px
+        background none
+        backdrop-filter none
+
+        &:hover
+          background none
+
+        &.active
+          background none
 
   .empty-library-message
     position absolute
@@ -348,7 +380,7 @@
               
   .game-container
     width 100%
-    height calc(100% - 65px)
+    height calc(100% - 140px)
     display grid
     // grid-template-columns repeat(7, 180px)
     // grid-template-columns repeat(6, 200px)

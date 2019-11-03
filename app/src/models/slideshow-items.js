@@ -4,6 +4,7 @@ import { Home } from '../ui/home'
 import { Library } from '../ui/library'
 import { Settings } from '../ui/settings'
 import { Profile } from '../ui/profile'
+import { Social } from '../ui/social'
 import { Authentication } from '../ui/authentication'
 
 /* export const slideshowItems = [
@@ -46,13 +47,13 @@ export const slideshowItems = [
     component: <Library />
   },
   {
-    id: 'settings',
-    label: 'Ajustes',
-    component: <Settings />
-  },
-  {
     id: 'profile',
     label: 'Profile',
     component: <Profile />
+  },
+  {
+    id: 'settings',
+    label: 'Ajustes',
+    component: <Settings />
   }
 ]

@@ -13,7 +13,7 @@ import { Game } from './game'
 import { authState } from '../../lib/auth.updated'
 
 import { appState } from '../../lib/app-store'
-import { fetchGames } from '../../lib/library.updated'
+import { fetchGames, addGameToLibrary } from '../../lib/library.updated'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -85,7 +85,7 @@ export class Library extends Component {
 
   add = async gameObject => {
     try {
-      const game = await library.add(gameObject)
+      const game = await addGameToLibrary(gameObject)
       this.setState({ game: this.state.games.push(game), displayAddGame: false })
 
       /* this.setState(state => ({ 

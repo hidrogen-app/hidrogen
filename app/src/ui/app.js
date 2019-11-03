@@ -8,6 +8,8 @@ import { RandomBackground } from './random-background'
 import { Loader } from './loader'
 import { Changelog } from './changelog'
 
+import { getRunningOS } from '../lib/running-os'
+
 import { slideshowItems } from '../models/slideshow-items'
 // import { auth } from '../lib/auth'
 import { getCLIArgsFromMainProcess } from '../lib/cli'
@@ -65,6 +67,28 @@ export class App extends Component {
     return <Changelog show={showChangelog} onClose={() => this.setState({ showChangelog: false })} />
   }
 
+  renderDialogs = () => {
+
+  }
+
+  renderTitlebar = () => {
+    const os = getRunningOS()
+    return <Titlebar os={os} />
+  }
+
+  renderSlideshow = () => {
+    /* appState.onAuthStateChanged(user => {
+      user
+        ? slideshowItems[3].label = user.username
+        : null
+    }) */
+    return <Slideshow items={slideshowItems} />
+  }
+
+  renderBackground = () => {
+    return <RandomBackground />
+  }
+
   render = () => {
     const { authState, theme, showChangelog } = this.state
 
@@ -79,12 +103,14 @@ export class App extends Component {
     return (
       <div className={className} theme='dark'>
 
-        <Titlebar />
         <Loader show={false} />
-        <Authentication />
-        <Slideshow items={slideshowItems} /> 
-        <RandomBackground />
 
+        <Authentication />
+
+        { this.renderTitlebar() }
+        { this.renderSlideshow() }
+        { this.renderBackground() }
+        
       </div>
     )
   }

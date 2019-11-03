@@ -17,14 +17,13 @@ export class Slideshow extends Component {
     appState.onAuthStateChanged(user => {
       if (user) {
         this.setState(state => ({ activeItem: state.items[0], renderNav: true }))
-        this.state.items[3].label = user.username
+        this.state.items[2].label = user.username
       } else {
         // this.setState(state => ({ activeItem: state.items[3], renderNav: false }))
       }
     })
 
     appState.onDialogStateChanged(isDialogActive => {
-      console.log('Dialog updated')
       const shouldHideSlideshow = isDialogActive
       this.setState({ hidden: shouldHideSlideshow })
     })

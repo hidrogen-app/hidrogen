@@ -42,16 +42,23 @@ export class Toolbar extends Component {
     return (
       <div className='toolbar'>
 
-        <Button icon='add' className='add-btn' onClick={addButton} />
-
+        <div className='buttons'>
+          <Button icon='add' className='add-btn' onClick={addButton} />
+          <Button icon='view_list' value='list-view' />
+          <Button icon='inbox' value='a-z-order' />
+        </div>
+        
         {
           // <Button icon='dashboard' value='dashboard-view' tooltip='Mostrar en cuadrícula' className='active' />
           // <Button icon='view_list' value='list-view' tooltip='Mostrar en lista' disabled />
           // <Button icon='search' className={classnames('search-icon', { active: showSearchBar })} onClick={this.toggleSearchBar} />
         }
       
+        <div className='searchbar-box'>
+          <Button icon='search' className={classnames('search-icon', { active: showSearchBar })} onClick={this.toggleSearchBar} />
+          <TextInput name='search-bar' className={classnames('search-bar', showSearchBar)} onChange={search} ref={this.searchBar} />
+        </div>
         
-        <TextInput name='search-bar' className={classnames('search-bar', showSearchBar)} onChange={search} ref={this.searchBar} />
 
         { updateAvailable ? this.renderUpdateAvailableButton() : null }
 

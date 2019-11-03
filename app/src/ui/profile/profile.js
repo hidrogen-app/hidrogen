@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { Button, Text, Image, Form, TextInput } from '../lib'
+import { Button, Text, Image, Form, TextInput, Dialog } from '../lib'
 
 /* import { auth } from '../../lib/auth' */
 import { signOut } from '../../lib/auth.updated'
@@ -37,7 +37,7 @@ export class Profile extends Component {
       username: user.username,
       email: user.email,
       picture: user.pictureUrl,
-      games: 0 // objectToArray(user.games).length
+      games: appState.getState().games.length
     })
   }
 
@@ -99,6 +99,36 @@ export class Profile extends Component {
           <Button icon='close' onClick={() => this.setState({ editMode: false, changePassword: false })} className='cancel-btn' />
         </Form> */}
 
+        <Dialog classNames='edit-profile-dialog'>
+          <Dialog.Body>
+            <div className='image-input'>
+              <div className='overlay'>
+                <Text> Editar </Text>
+              </div>
+            </div>
+
+            <div className='fields'>
+              <TextInput placeholder='Nombre de usuario' value={username} name='username' className='align-left' onChange={({ value }) => this.setState({ editedUsername: value })} />
+              <TextInput placeholder='Correo electrónico' value={email} name='email' className='align-left' onChange={({ value }) => this.setState({ editedEmail: value })} />
+              <TextInput placeholder='Contraseña actual' secureTextEntry name='currentPassword' className='align-left' />
+
+              {
+                changePassword
+                  ? <TextInput placeholder='Nueva contraseña' secureTextEntry name='newPassword' className='align-left' />
+                  : <Button size='small' label='Cambiar mi contraseña' onClick={() => this.setState({ changePassword: true })} />
+              }
+            </div>
+
+            <div className='buttons'>
+              <Button variant='danger' label='Eliminar mi cuenta' className='delete-btn' />
+              <Button variant='secondary' label='Cancelar' className='cancel-btn' onClick={() => this.setState({ editMode: false })} />
+              <Button variant='success' label='Guardar cambios' className='accept-btn' onClick={this.updateUser} />
+            </div>
+
+            <Button icon='close' onClick={() => this.setState({ editMode: false, changePassword: false })} className='cancel-btn' />
+          </Dialog.Body>
+        </Dialog>
+
         <div className='summary'>
           {
             // <Image source={picture} className='picture' />
@@ -125,6 +155,8 @@ export class Profile extends Component {
             </div>
           </div>
 
+          <Button label='Editar' className='edit-btn' onClick={() => this.setState({ editMode: true })} />
+
         </div>
 
         <div className='buttons'>
@@ -133,7 +165,7 @@ export class Profile extends Component {
 
             // <Button label='Detalles de la cuenta' className='details-btn' onClick={() => this.setState({ detailsMode: true })} />
           }
-          <Button label='Editar' className='edit-btn' onClick={() => this.setState({ editMode: true })} />
+          
           <Button label='Cerrar sesión' className='sign-out-btn' onClick={signOut} />
         </div>
       
