@@ -10,6 +10,8 @@ import { FileInput } from './file-input'
 import { List } from './list'
 import { Accordion } from './accordion'
 
+import { View } from './View'
+
 export {
   Text,
   TextInput,
@@ -21,5 +23,6 @@ export {
   Form,
   FileInput,
   List,
-  Accordion
+  Accordion,
+  View
 }
